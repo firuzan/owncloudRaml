@@ -1,0 +1,69 @@
+#%RAML 1.0
+title: New API
+version: v1
+baseUri:ocs/v1.php/cloud/users
+
+types:
+  Users:
+    post: users/ addUser
+     properties: userId, password
+    description: userId is string en de vereiste gebruikersnaam voor de nieuwe gebruiker
+     password is strin en het vereiste wachtwoord voor de nieuwe gebruiker
+  response:
+    100:
+      example: http://admin:secret@example.com/ocs/v1.php/cloud/users -d userid="Frank" -d password="frankspassword"
+      get: users/ getUsers
+       response:
+        100:
+          example:http://admin:secret@example.com/ocs/v1.php/cloud/users?search=Frank
+      get: users/ getUser
+      properties: {userId}
+       description: Return information over user
+        response:
+          100:
+            example: http://admin:secret@example.com/ocs/v1.php/cloud/users/Frank
+      put: users/editUser
+       response:
+         100:
+           desripciton: bijwerken in veld email en wachtwoord
+             example: http://admin:secret@example.com/ocs/v1.php/cloud/users/Frank -d key="email" -d value="franksnewemail@example.org"
+      delete: users/deleteUser
+        properties: {userId}
+        response:
+          100:
+            description: ocs/v1.php/cloud/users/{userid}
+              example: http://admin:secret@example.com/ocs/v1.php/cloud/users/Frank
+      get: users/getGroups
+       description: ocs/v1.php/cloud/users/{userid}/groups
+              list van de groups
+        response:
+          100:
+            example: http://admin:secret@example.com/ocs/v1.php/cloud/users/Frank/groups
+      post: users/addGroup
+        Syntax:  ocs/v1.php/cloud/users/{userid}/groups
+          response:
+            100:
+              example:  http://admin:secret@example.com/ocs/v1.php/cloud/users/Frank/groups -d groupid="newgroup"
+
+      delete: users/removeFromGroup
+        Syntax: ocs/v1.php/cloud/users/{userid}/groups
+            response:
+              100:
+                example:http://admin:secret@example.com/ocs/v1.php/cloud/users/Frank/groups -d groupid="newgroup"
+      post: users/createSubadmin
+        Syntax: ocs/v1.php/cloud/users/{userid}/subadmins
+          response:
+            100:
+              example: https://admin:secret@example.com/ocs/v1.php/cloud/users/Frank/subadmins -d groupid="group"
+
+     delete: users/removeSubadmin
+       Syntax: ocs/v1.php/cloud/users/{userid}/subadmins
+         description: groupid, string - de groep waarvan de subadmin-rechten van de gebruiker moeten worden verwijderd
+           response:
+             100:
+               example:https://admin:secret@example.com/ocs/v1.php/cloud/users/Frank/subadmins -d groupid="oldgroup"
+      get: users/ getSubadmingroups
+         Syntax: ocs/v1.php/cloud/users/{userid}/subadmins
+           response:
+             100:
+               example: https://admin:secret@example.com/ocs/v1.php/cloud/users/Frank/subadmins

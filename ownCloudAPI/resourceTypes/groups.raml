@@ -1,0 +1,49 @@
+#%RAML 1.0
+title: New API
+version: v1
+baseUri:ocs/v1.php/cloud/groups
+
+type:
+  Groups:
+
+    get: groups/ getGroups
+      Syntax:ocs/v1.php/cloud/groups
+        response:
+          100:
+            body:
+              application/json:
+            description:string, optional search string
+              example: //admin:secret@example.com/ocs/v1.php/cloud/groups?search=adm
+    post: groups/ addGroup
+    Syntax:ocs/v1.php/cloud/groups
+      response:
+        100:
+          body:
+              application/json:
+          description:POST argument: groupid, string - the new groups name
+            example: http://admin:secret@example.com/ocs/v1.php/cloud/groups -d groupid="newgroup"
+
+            get: groups/ getGroup
+              Syntax:ocs/v1.php/cloud/groups/{groupid}
+                response:
+                  100:
+                    body:
+                      application/json:
+                  description: Returns a list of users in the admin group
+                      example: http://admin:secret@example.com/ocs/v1.php/cloud/groups/admin
+            get: groups/getSubadmins
+              Syntax:  ocs/v1.php/cloud/groups/{groupid}/subadmins
+              response:
+                  100:
+                    body:
+                      application/json:
+                  description: Return the subadmins of the group: mygroup
+                      example: https://admin:secret@example.com/ocs/v1.php/cloud/groups/mygroup/subadmins
+          delete: groups/deleteGroup
+            Syntax:  ocs/v1.php/cloud/groups/{groupid}/subadmins
+            response:
+                100:
+                  body:
+                    application/json:
+                description: Delete the group mygroup
+                    example: http://admin:secret@example.com/ocs/v1.php/cloud/groups/mygroup

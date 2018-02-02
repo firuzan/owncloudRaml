@@ -1,0 +1,38 @@
+#%RAML 1.0
+title: New API
+version: v1
+baseUri:ocs/v1.php/cloud/apps/
+
+types:
+  get: apps/getApps
+    Syntax: ocs/v1.php/cloud/apps/
+        response:
+          100:
+            body:
+              application/json:
+                description:url-argument: filter, string - optioneel ( enabledof disabled
+                  example: http://admin:secret@example.com/ocs/v1.php/cloud/apps?filter=enabled
+   get: apps/getAppInfo
+     Syntax: ocs / v1.php / cloud / apps / {appid}
+         response:
+           100:
+             body:
+               application/json:
+                 description:Download app-informatie voor de filesapp
+                   example: http://admin:secret@example.com/ocs/v1.php/cloud/apps/files
+    post: apps / enable
+      Syntax: ocs/v1.php/cloud/apps/{appid}
+          response:
+            100:
+              body:
+                application/json:
+                  description:Enable the files_texteditor app
+                    example:http://admin:secret@example.com/ocs/v1.php/cloud/apps/files_texteditor
+    delete:apps / disable¶
+      Syntax: ocs/v1.php/cloud/apps/
+          response:
+            100:
+              body:
+                application/json:
+                  description:Disable the files_texteditor app
+                    example: http://admin:secret@example.com/ocs/v1.php/cloud/apps/files_texteditor
